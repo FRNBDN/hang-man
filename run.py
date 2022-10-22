@@ -18,14 +18,17 @@ def game_menu():
         print('3. Quit\n')
         user_input = input('Navigate the menu by typing '
                            'the corresponding number!')
-        if user_input == '1':
-            game_running()
-        elif user_input == '2':
-            print('\nintructions\n')
-        elif user_input == '3':
-            exit()
+        if input_validation(user_input, 'number') is True:
+            if user_input == '1':
+                game_running()
+            elif user_input == '2':
+                print('\nintructions\n')
+            elif user_input == '3':
+                exit()
+            else:
+                print('\nNot a valid input\n')
         else:
-            print('\nNot a valid input\n')
+            print('Not a single number!')
     # checks for user input for the menu items
     # passes validation criteria and input over to input validation
     # if valid then it gets pushed to the right function
@@ -47,33 +50,33 @@ def game_start():
 def game_running():
     """
     Function that is running as long as the game is running,
-    Stores all the guesses and sets the word to be guessed and 
-    keeps track of the amount of right/wrong guesses needed for 
+    Stores all the guesses and sets the word to be guessed and
+    keeps track of the amount of wrong guesses needed for
     the game to end.
     """
     word_to_be_guessed = game_start()
     print(word_to_be_guessed)
     # optional: pass through difficulty setting
     guessed = []
-    tot_right = len(word_to_be_guessed)
     tot_wrong = len(hangmanwordbank.HANGMANPICS)
-    while tot_wrong and tot_wrong > 0:
+    while tot_wrong > 0:
         # Prompts the players guess
         usr_guess = input('Guess a letter\n')
         # add validation step
-        guessed.append(usr_guess)
-        print(guessed)
-        if usr_guess in word_to_be_guessed:
-            # If guess is correct, remove one from the total
-            # guesses needed to win and give feedback to user.
-            tot_right -= 1
-            print(f"The letter {usr_guess} is in the word")
+        if input_validation(usr_guess, 'letter'):
+            guessed.append(usr_guess)
+            if usr_guess in word_to_be_guessed:
+                print(f"The letter {usr_guess} is in the word")
+            else:
+                # logs the wrong answer
+                tot_wrong -= 1
+                print(f"The letter {usr_guess} is not in the word")
+            print(tot_wrong)
+            print(guessed)
+            game_board_update(guessed, tot_wrong) # needs code
         else:
-            tot_wrong -= 1
-            print(f"The letter {usr_guess} is not in the word")
-
-        print(tot_right)
-        print(tot_wrong)
+            print('Input is not a letter!')
+    print('loop ended!')
     # Checks that the to see if game has been won or lost
     # asks for user input of a letter
     # sends it with criteria to validatiton function
@@ -83,10 +86,20 @@ def game_running():
     # optional: accepts quit to cancel game session
 
 
-def input_validation():
+def input_validation(usr_input, char_type):
     """
     Validates the users input.
     """
+    # Checks if the input is more than 1 character
+    if len(usr_input) > 1:
+        return False
+    # Checks if the input is supposed to be a number
+    if char_type == 'number':
+        # returns if it is a number or not
+        return usr_input.isalnum()
+    # Otherwise returns if it is a letter or not
+    return usr_input.isalpha()
+
     # accepts two inputs, the input to be validated and the expected type
     # if correct send back true + success message
     # if incorrect send back wrong + error message
