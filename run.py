@@ -34,22 +34,46 @@ def game_menu():
 
 def game_start():
     """
-    Sets up the game, generates the word.
+    Generates the word to be guessed.
     """
     words = hangmanwordbank.words
     word = random.choice(words)
+    # returns the randomised word
+    # to the game_running function
     return word
-    # list of words
-    # chooses the word for the game from the list
-    # optional: based on letter count (difficulty level)
-    # returns the word to the game_running function
+    # optional addition: based on letter count (difficulty level)
 
 
 def game_running():
     """
-    Function that is running as long as the game is running.
+    Function that is running as long as the game is running,
+    Stores all the guesses and sets the word to be guessed and 
+    keeps track of the amount of right/wrong guesses needed for 
+    the game to end.
     """
-    # calls game_start function, optional: pass through difficulty setting
+    word_to_be_guessed = game_start()
+    print(word_to_be_guessed)
+    # optional: pass through difficulty setting
+    guessed = []
+    tot_right = len(word_to_be_guessed)
+    tot_wrong = len(hangmanwordbank.HANGMANPICS)
+    while tot_wrong and tot_wrong > 0:
+        # Prompts the players guess
+        usr_guess = input('Guess a letter\n')
+        # add validation step
+        guessed.append(usr_guess)
+        print(guessed)
+        if usr_guess in word_to_be_guessed:
+            # If guess is correct, remove one from the total
+            # guesses needed to win and give feedback to user.
+            tot_right -= 1
+            print(f"The letter {usr_guess} is in the word")
+        else:
+            tot_wrong -= 1
+            print(f"The letter {usr_guess} is not in the word")
+
+        print(tot_right)
+        print(tot_wrong)
     # Checks that the to see if game has been won or lost
     # asks for user input of a letter
     # sends it with criteria to validatiton function
@@ -69,7 +93,7 @@ def input_validation():
     # back to game_running
 
 
-def game_board_update():
+def game_board_update(guessed, tot_wrong):
     """
     Updates the hangman gameboard.
     """
@@ -110,7 +134,7 @@ def main():
     Runs program functions and keeps track of gamestates
     """
     # game_menu()
-    game_start()
+    game_running()
 
 
 main()
