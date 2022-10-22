@@ -1,3 +1,5 @@
+import hangmanwordbank, random
+
 def game_menu():
     """
     Function that runs the start menu.
@@ -12,7 +14,7 @@ def game_menu():
         print('3. Quit\n')
         user_input = input()
         if user_input == '1':
-            print('\nstart game!\n')
+            game_running()
         elif user_input == '2':
             print('\nintructions\n')
         elif user_input == '3':
@@ -29,6 +31,9 @@ def game_start():
     """
     Sets up the game, generates the word.
     """
+    words = hangmanwordbank.words
+    word = random.choice(words)
+    return word
     # list of words
     # chooses the word for the game from the list
     # optional: based on letter count (difficulty level)
@@ -99,7 +104,8 @@ def main():
     """
     Runs program functions and keeps track of gamestates
     """
-    game_menu()
+    # game_menu()
+    game_start()
 
 
 main()
