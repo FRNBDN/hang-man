@@ -1,4 +1,8 @@
-import hangmanwordbank, random
+import random
+import hangmanwordbank
+# hangman resources like picture and wordbank from Github
+# https://gist.github.com/chrishorton/8510732aa9a80a03c829b09f12e20d9c
+
 
 def game_menu():
     """
@@ -7,12 +11,13 @@ def game_menu():
     running = True
 
     while running is True:
-        print('Welcome to the game of Hangman!')
-        print('Navigate the menu by typing the corresponding number!')
+        # Prints the menu
+        print('Welcome to Animal Hangman!')
         print('1. Play\n')
         print('2. Instructions\n')
         print('3. Quit\n')
-        user_input = input()
+        user_input = input('Navigate the menu by typing '
+                           'the corresponding number!')
         if user_input == '1':
             game_running()
         elif user_input == '2':
