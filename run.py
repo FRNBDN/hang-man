@@ -13,7 +13,8 @@ def game_menu():
 
     while running is True:
         # Prints the menu
-        print('\nWelcome to Animal Hangman!\n ')
+        print('\nWelcome to Animal Themed Hangman!\n'
+              'All words are animals!')
         print('1. Play\n')
         print('2. Instructions\n')
         print('3. Quit\n')
@@ -23,7 +24,7 @@ def game_menu():
             if user_input == '1':
                 game_running()
             elif user_input == '2':
-                print('\nintructions\n')
+                instructions()
             elif user_input == '3':
                 user_input = input('To confirm you want to quit the game\n'
                                    'Type "q"\n')
@@ -49,7 +50,7 @@ def game_start():
     print('Progress:')
     print(len(word)*'_ ')
     print('=================')
-    print("Previous Guesses:")
+    print("Wrong Guesses:")
     print("None")
     print('=================')
     # returns the randomised word
@@ -67,14 +68,14 @@ def game_running():
     """
     word_to_be_guessed = game_start()
     # optional: pass through difficulty setting
-    guessed = ""
+    guessed = []
     tot_wrong = 0
     while tot_wrong < len(hangmanwordbank.HANGMANPICS)-1:
         # Prompts the players guess
         usr_guess = input('Guess a letter:\n').upper()
         if input_validation(usr_guess, 'letter'):
             if usr_guess not in guessed:
-                guessed += f"{usr_guess} "
+                guessed.append(usr_guess)
                 if usr_guess in word_to_be_guessed:
                     print(f"The letter {usr_guess} is in the word")
                 else:
@@ -126,19 +127,23 @@ def game_board_update(guessed, tot_wrong, word):
     """
     graphic = hangmanwordbank.HANGMANPICS[tot_wrong]
     word_progress = ""
+    wrong_guess = ""
     for i in word:
         if i in guessed:
             word_progress = word_progress + f"{i} "
         else:
             word_progress = word_progress + "_ "
+    for y in guessed:
+        if y not in word:
+            wrong_guess += f"{y} "
 
     print(graphic)
     print('=================')
     print('Progress:')
     print(word_progress)
     print('=================')
-    print("Previous Guesses:")
-    print(guessed)
+    print("Wrong Guesses:")
+    print(wrong_guess)
     print('=================')
 
     if "_" not in word_progress:
@@ -181,11 +186,25 @@ def instructions():
     """
     Displays the Instructions for the game.
     """
-    print()
-    input('Press any key to return to the menu.')
+    print('\n########################')
+    print('# Hangman Instructions #')
+    print('#======================#')
+    print('# How to play: #')
+    print('# - Guess the hidden word, the number #')
+    print('# of underscores is how many letters                   #')
+    print('# the word has.                     #')
+    print('# - Guess 1 letter at the time.                  #')
+    print('#                      #')
+    print('#                      #')
+    print('########################')
+    input('Press enter to return to the menu.')
+    print('Returning to menu...')
+    time.sleep(1)
+
     # general rules of hangman
     # amount of wrong answers allowed before the man gets hung
     # what the different menu options do and commands inside the game
 
 
 game_menu()
+# instructions()
