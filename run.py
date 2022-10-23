@@ -1,7 +1,6 @@
 import random
 import time
 import hangmanwordbank
-
 # hangman resources like picture and wordbank from Github
 # https://gist.github.com/chrishorton/8510732aa9a80a03c829b09f12e20d9c
 
@@ -14,7 +13,6 @@ def game_menu():
 
     while running is True:
         # Prints the menu
-
         print('\nWelcome to Animal Hangman!\n ')
         print('1. Play\n')
         print('2. Instructions\n')
@@ -36,9 +34,6 @@ def game_menu():
                     exit()
                 print('Reurning to main menu..')
                 time.sleep(1)
-    # checks for user input for the menu items
-    # passes validation criteria and input over to input validation
-    # if valid then it gets pushed to the right function
     # optional: add difficulty level that can be set.
 
 
@@ -78,30 +73,26 @@ def game_running():
         # Prompts the players guess
         usr_guess = input('Guess a letter:\n').upper()
         if input_validation(usr_guess, 'letter'):
-            guessed += f"{usr_guess} "
-            if usr_guess in word_to_be_guessed:
-                print(f"The letter {usr_guess} is in the word")
+            if usr_guess not in guessed:
+                guessed += f"{usr_guess} "
+                if usr_guess in word_to_be_guessed:
+                    print(f"The letter {usr_guess} is in the word")
+                else:
+                    # logs the wrong answer
+                    tot_wrong += 1
+                    print(f"The letter '{usr_guess}' is not in the word")
+                # sends info to game board
+                game_board_update(guessed, tot_wrong, word_to_be_guessed)
             else:
-                # logs the wrong answer
-                tot_wrong += 1
-                print(f"The letter '{usr_guess}' is not in the word")
-            # sends info to game board
-            game_board_update(guessed, tot_wrong, word_to_be_guessed)
+                print(f"You already guessed'{usr_guess}', try again")
+                time.sleep(1)
     game_loss(word_to_be_guessed)
-    # Checks that the to see if game has been won or lost
-    # asks for user input of a letter
-    # sends it with criteria to validatiton function
-    # if true updates gamestate and pushes info game_board_update
-    # loop back
-    # if game is won/lost send to won/lost function
-    # optional: accepts quit to cancel game session
 
 
 def input_validation(usr_input, char_type):
     """
     Validates the users input.
     """
- 
     try:
         # Checks if the input is more than 1 character
         if len(usr_input) > 1:
@@ -151,15 +142,10 @@ def game_board_update(guessed, tot_wrong, word):
     print('=================')
 
     if "_" not in word_progress:
-        game_win(tot_wrong)
-    # accepts input of wrongs and rights in a list
-    # displays the rights in the correct index in the guessed answer
-    # displays the wrong in a list next to it
-    # draws the hangman dude based on wrong answers
-    # return the value to the is running
+        game_win()
 
 
-def game_win(tot_wrong):
+def game_win():
     """
     Displays the victory message.
     """
@@ -168,8 +154,6 @@ def game_win(tot_wrong):
     print('#################')
     time.sleep(.5)
     print("You won the game!")
-    time.sleep(.5)
-    print(f"With {tot_wrong} \nwrong guessses! ")
     time.sleep(.5)
     print('Returning to menu...')
     time.sleep(1)
@@ -197,6 +181,8 @@ def instructions():
     """
     Displays the Instructions for the game.
     """
+    print()
+    input('Press any key to return to the menu.')
     # general rules of hangman
     # amount of wrong answers allowed before the man gets hung
     # what the different menu options do and commands inside the game
