@@ -14,7 +14,7 @@ def game_menu():
     while running is True:
         # Prints the menu
         print('\nWelcome to Animal Themed Hangman!\n'
-              'All words are animals!')
+              'Where all words are animals!\n')
         print('1. Play\n')
         print('2. Instructions\n')
         print('3. Quit\n')
@@ -35,7 +35,9 @@ def game_menu():
                     exit()
                 print('Reurning to main menu..')
                 time.sleep(1)
-    # optional: add difficulty level that can be set.
+            else:
+                print('\nMenu is between 1-3, there are hidden menu items!\n')
+                time.sleep(1)
 
 
 def game_start():
@@ -56,7 +58,6 @@ def game_start():
     # returns the randomised word
     # to the game_running function
     return word
-    # optional addition: based on letter count (difficulty level)
 
 
 def game_running():
