@@ -180,4 +180,3 @@ def instructions():
 
 
 game_menu()
-
