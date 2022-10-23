@@ -47,7 +47,7 @@ def game_start():
     Generates the word to be guessed.
     """
     words = hangmanwordbank.words
-    word = random.choice(words)
+    word = random.choice(words).upper()
 
     print(hangmanwordbank.HANGMANPICS[0])
     print('=================')
@@ -76,7 +76,7 @@ def game_running():
     tot_wrong = 0
     while tot_wrong < len(hangmanwordbank.HANGMANPICS)-1:
         # Prompts the players guess
-        usr_guess = input('Guess a letter:\n')
+        usr_guess = input('Guess a letter:\n').upper()
         if input_validation(usr_guess, 'letter'):
             guessed += f"{usr_guess} "
             if usr_guess in word_to_be_guessed:
@@ -84,7 +84,7 @@ def game_running():
             else:
                 # logs the wrong answer
                 tot_wrong += 1
-                print(f"The letter {usr_guess} is not in the word")
+                print(f"The letter '{usr_guess}' is not in the word")
             # sends info to game board
             game_board_update(guessed, tot_wrong, word_to_be_guessed)
     game_loss(word_to_be_guessed)
@@ -144,10 +144,10 @@ def game_board_update(guessed, tot_wrong, word):
     print(graphic)
     print('=================')
     print('Progress:')
-    print(word_progress.upper())
+    print(word_progress)
     print('=================')
     print("Previous Guesses:")
-    print(guessed.upper())
+    print(guessed)
     print('=================')
 
     if "_" not in word_progress:
@@ -166,8 +166,13 @@ def game_win(tot_wrong):
     print('#################')
     print('#    Congrats!  #')
     print('#################')
+    time.sleep(.5)
     print("You won the game!")
+    time.sleep(.5)
     print(f"With {tot_wrong} \nwrong guessses! ")
+    time.sleep(.5)
+    print('Returning to menu...')
+    time.sleep(1)
     game_menu()
 
 
@@ -178,8 +183,13 @@ def game_loss(word):
     print('#################')
     print('#    You Lost   #')
     print('#################')
+    time.sleep(.5)
     print("You let him hang")
-    print(f"The answer was '{word.upper()}'\nWas it really that hard?")
+    time.sleep(.5)
+    print(f"The answer was '{word.upper()}'\nWas it really that hard?\n")
+    time.sleep(.5)
+    print('Returning to menu...')
+    time.sleep(1)
     game_menu()
 
 
