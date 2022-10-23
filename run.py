@@ -1,5 +1,7 @@
 import random
+import time
 import hangmanwordbank
+
 # hangman resources like picture and wordbank from Github
 # https://gist.github.com/chrishorton/8510732aa9a80a03c829b09f12e20d9c
 
@@ -12,7 +14,8 @@ def game_menu():
 
     while running is True:
         # Prints the menu
-        print('Welcome to Animal Hangman!')
+
+        print('\nWelcome to Animal Hangman!\n ')
         print('1. Play\n')
         print('2. Instructions\n')
         print('3. Quit\n')
@@ -25,10 +28,14 @@ def game_menu():
                 print('\nintructions\n')
             elif user_input == '3':
                 user_input = input('To confirm you want to quit the game\n'
-                                   ' type "q" or "quit" ')
+                                   ' type "q" or "quit"\n')
                 if user_input.upper() == 'Q' or user_input.upper() == 'QUIT':
+                    print('Quitting...')
+                    time.sleep(1)
+                    print('Quit successfully')
                     exit()
                 print('Reurning to main menu..')
+                time.sleep(1)
 
             else:
                 print('\nNot a valid input\n')
