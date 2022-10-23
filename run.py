@@ -17,14 +17,19 @@ def game_menu():
         print('2. Instructions\n')
         print('3. Quit\n')
         user_input = input('Navigate the menu by typing '
-                           'the corresponding number!')
+                           'the corresponding number:\n')
         if input_validation(user_input, 'number') is True:
             if user_input == '1':
                 game_running()
             elif user_input == '2':
                 print('\nintructions\n')
             elif user_input == '3':
-                exit()
+                user_input = input('To confirm you want to quit the game\n'
+                                   ' type "q" or "quit" ')
+                if user_input.upper() == 'Q' or user_input.upper() == 'QUIT':
+                    exit()
+                print('Reurning to main menu..')
+
             else:
                 print('\nNot a valid input\n')
         else:
@@ -41,7 +46,6 @@ def game_start():
     """
     words = hangmanwordbank.words
     word = random.choice(words)
-    print(word)
 
     print(hangmanwordbank.HANGMANPICS[0])
     print('=================')
@@ -68,7 +72,7 @@ def game_running():
     # optional: pass through difficulty setting
     guessed = ""
     tot_wrong = 0
-    while tot_wrong < len(hangmanwordbank.HANGMANPICS):
+    while tot_wrong < len(hangmanwordbank.HANGMANPICS)-1:
         # Prompts the players guess
         usr_guess = input('Guess a letter\n')
         if input_validation(usr_guess, 'letter'):
@@ -79,13 +83,10 @@ def game_running():
                 # logs the wrong answer
                 tot_wrong += 1
                 print(f"The letter {usr_guess} is not in the word")
-            print(tot_wrong)
-            print(guessed)
             # sends info to game board
             game_board_update(guessed, tot_wrong, word_to_be_guessed)
         else:
             print('Input is not a letter!')
-        # print(game_board)
     game_loss(word_to_be_guessed)
     # Checks that the to see if game has been won or lost
     # asks for user input of a letter
@@ -155,7 +156,7 @@ def game_win(tot_wrong):
     print('#################')
     print("You won the game!")
     print(f"With {tot_wrong} \nwrong guessses! ")
-    exit()
+    game_menu()
 
 
 def game_loss(word):
@@ -167,7 +168,7 @@ def game_loss(word):
     print('#################')
     print("You let him hang")
     print(f"The answer was '{word.upper()}'\nWas it really that hard?")
-    exit()
+    game_menu()
 
 
 def instructions():

@@ -41,16 +41,13 @@ HANGMANPICS = ['''
      /    |
           |
     =========''', '''
-   LAST CHANCE 
-  BEFORE HE DIES!
       +---+
       |   |
       O   |
      /|\  |
      / \  |
           |
-    ========= 
-''']
+    ========= ''']
 
 # Word bank of animals
 words = ('ant baboon badger bat bear beaver camel cat clam cobra cougar '
