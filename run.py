@@ -28,19 +28,14 @@ def game_menu():
                 print('\nintructions\n')
             elif user_input == '3':
                 user_input = input('To confirm you want to quit the game\n'
-                                   ' type "q" or "quit"\n')
-                if user_input.upper() == 'Q' or user_input.upper() == 'QUIT':
+                                   'Type "q"\n')
+                if user_input.upper() == 'Q':
                     print('Quitting...')
                     time.sleep(1)
                     print('Quit successfully')
                     exit()
                 print('Reurning to main menu..')
                 time.sleep(1)
-
-            else:
-                print('\nNot a valid input\n')
-        else:
-            print('Not a single number!')
     # checks for user input for the menu items
     # passes validation criteria and input over to input validation
     # if valid then it gets pushed to the right function
@@ -81,7 +76,7 @@ def game_running():
     tot_wrong = 0
     while tot_wrong < len(hangmanwordbank.HANGMANPICS)-1:
         # Prompts the players guess
-        usr_guess = input('Guess a letter\n')
+        usr_guess = input('Guess a letter:\n')
         if input_validation(usr_guess, 'letter'):
             guessed += f"{usr_guess} "
             if usr_guess in word_to_be_guessed:
@@ -92,8 +87,6 @@ def game_running():
                 print(f"The letter {usr_guess} is not in the word")
             # sends info to game board
             game_board_update(guessed, tot_wrong, word_to_be_guessed)
-        else:
-            print('Input is not a letter!')
     game_loss(word_to_be_guessed)
     # Checks that the to see if game has been won or lost
     # asks for user input of a letter
@@ -108,16 +101,28 @@ def input_validation(usr_input, char_type):
     """
     Validates the users input.
     """
-    # Checks if the input is more than 1 character
-    if len(usr_input) > 1:
-        return False
-    # Checks if the input is supposed to be a number
-    if char_type == 'number':
-        # returns if it is a number or not
-        return usr_input.isalnum()
-    # Otherwise returns if it is a letter or not
-    return usr_input.isalpha()
+ 
+    try:
+        # Checks if the input is more than 1 character
+        if len(usr_input) > 1:
+            raise ValueError(
+                "Too many characters in your input, it contains "
+                f"{len(usr_input)} characters instead of one"
+            )
+        if char_type == 'number':
+            int(usr_input)
 
+        if char_type == 'letter':
+            if usr_input.isalpha() is not True:
+                raise ValueError(
+                    "Only letters accepted as valid guesses!"
+                )
+    except ValueError as e:
+        print(f"Invalid input: {e}\n")
+        time.sleep(1)
+        return False
+
+    return True
     # accepts two inputs, the input to be validated and the expected type
     # if correct send back true + success message
     # if incorrect send back wrong + error message
