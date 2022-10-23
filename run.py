@@ -27,13 +27,13 @@ def game_menu():
                 instructions()
             elif user_input == '3':
                 user_input = input('To confirm you want to quit the game\n'
-                                   'Type "q"\n')
+                                   'Type "q", type anything else to return \n')
                 if user_input.upper() == 'Q':
                     print('Quitting...')
                     time.sleep(1)
                     print('Quit successfully')
                     exit()
-                print('Reurning to main menu..')
+                print('Reurning to menu..')
                 time.sleep(1)
             else:
                 print('\nMenu is between 1-3, there are hidden menu items!\n')
@@ -74,6 +74,16 @@ def game_running():
     while tot_wrong < len(hangmanwordbank.HANGMANPICS)-1:
         # Prompts the players guess
         usr_guess = input('Guess a letter:\n').upper()
+        if usr_guess == 'QUIT':
+            user_input = input('To confirm you want to quit the game\n'
+                               'Type "q", type anything else to return \n')
+            if user_input.upper() == 'Q':
+                print('Quitting...')
+                time.sleep(1)
+                print('Quit successfully')
+                game_menu()
+            print('Reurning to game..')
+            time.sleep(1)
         if input_validation(usr_guess, 'letter'):
             if usr_guess not in guessed:
                 guessed.append(usr_guess)
@@ -187,25 +197,27 @@ def instructions():
     """
     Displays the Instructions for the game.
     """
-    print('\n########################')
-    print('# Hangman Instructions #')
-    print('#======================#')
-    print('# How to play: #')
-    print('# - Guess the hidden word, the number #')
-    print('# of underscores is how many letters                   #')
-    print('# the word has.                     #')
-    print('# - Guess 1 letter at the time.                  #')
-    print('#                      #')
-    print('#                      #')
-    print('########################')
+    print('''
+    Animal Hangman Rules:
+    - Guess the word that is hidden
+    - All words are different animals.
+    - W rong guesses gets displayed below
+    - Right guesses are displayed in the right position in the word.
+    - If the man gets hung before you complete the word, you lose.
+    - If you guess the word before he gets hung you win.
+
+    Input:
+    - Input number corresponding to menu items, error message if not
+      a appropriate value.
+    - Input letter for guesses, not case sensetive, checks if letter
+      is a leter and if it is unique.
+    - type quit while playing to quit to main menu
+
+    ''')
     input('Press enter to return to the menu.')
     print('Returning to menu...')
     time.sleep(1)
-
-    # general rules of hangman
-    # amount of wrong answers allowed before the man gets hung
-    # what the different menu options do and commands inside the game
+    game_menu()        
 
 
 game_menu()
-# instructions()
