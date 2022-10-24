@@ -138,8 +138,8 @@ def input_validation(usr_input, char_type):
                 raise ValueError(  # Error message for wrong type
                     "Only letters accepted as valid guesses!"
                 )
-    except ValueError as e:  # Prints out the error message
-        print(f"Invalid input: {e}\n")
+    except ValueError as error:  # Prints out the error message
+        print(f"Invalid input: {error}\n")
         time.sleep(1)
         return False
 
@@ -160,9 +160,9 @@ def game_board_update(guessed, tot_wrong, word):
             word_progress = word_progress + f"{i} "
         else:
             word_progress = word_progress + "_ "
-    for y in guessed:  # Loop for wrong guesses
-        if y not in word:
-            wrong_guess += f"{y} "
+    for i in guessed:  # Loop for wrong guesses
+        if i not in word:
+            wrong_guess += f"{i} "
     # New gameboard print
     print(graphic)
     print('=================')
@@ -224,7 +224,7 @@ def instructions():
     Animal Hangman Rules:
     - Guess the word that is hidden
     - All words are different animals.
-    - W rong guesses gets displayed below
+    - Wrong guesses gets displayed below
     - Right guesses are displayed in the right position in the word.
     - If the man gets hung before you complete the word, you lose.
     - If you guess the word before he gets hung you win.
