@@ -190,7 +190,7 @@ def game_win():
     time.sleep(.5)
     print("You won the game!")
     time.sleep(.5)
-    input('Press enter to return to the menu')
+    input('Press enter to return to the menu\n')
     print('Returning to menu...')
     time.sleep(1)
     game_menu()  # Return to menu
@@ -209,7 +209,7 @@ def game_loss(word):
     time.sleep(.5)
     print(f"The answer was '{word.upper()}'\nWas it really that hard?\n")
     time.sleep(.5)
-    input('Press enter to return to the menu')
+    input('Press enter to return to the menu\n')
     print('Returning to menu...')
     time.sleep(1)
     game_menu()  # Return to menu
@@ -237,7 +237,7 @@ def instructions():
     - type quit while playing to quit to main menu
 
     ''')
-    input('Press enter to return to the menu.')
+    input('Press enter to return to the menu.\n')
     print('Returning to menu...')
     time.sleep(1)
     game_menu()  # Return to menu
