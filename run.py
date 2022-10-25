@@ -25,7 +25,6 @@ def game_menu():
                 # Game launch with a transition
                 print('\nPreparing gameboard...\n')
                 time.sleep(1)
-                print('\nTo quit to menu, type "quit"\n')
                 game_running()
             elif user_input == '2':
                 # Show instructions with a transition
@@ -58,6 +57,7 @@ def game_start():
     words = hangmanwordbank.words
     word = random.choice(words).upper()
 
+    print('\nTo quit to menu, type "quit"\n')
     print(hangmanwordbank.HANGMANPICS[0])
     print('=================')
     print('Progress:')
@@ -164,6 +164,7 @@ def game_board_update(guessed, tot_wrong, word):
         if i not in word:
             wrong_guess += f"{i} "
     # New gameboard print
+    print('\nTo quit to menu, type "quit"\n')
     print(graphic)
     print('=================')
     print('Progress:')
