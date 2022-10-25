@@ -102,17 +102,29 @@ def game_running():
             time.sleep(1)
         if usr_guess == 'FW':  # Checks for keyword for full guess from input
             print("\nIf you get the full word wrong, you will lose the game")
+            time.sleep(5)
             print("\nAre you sure you want to guess the full word?")
-            conf = input('To confirm, write the full word and press enter\n'
-                         'To cancel press enter without typing anything in the'
-                         'input area,\n').upper()
-            if (conf != '' and input_validation(conf, 'letter',
-                                                len(word_to_be_guessed))):
-                # if its a serious guess, its sent to check if corr
-                full_word(word_to_be_guessed, conf)
-            else:
-                print('Cancelling full word guess...')
-                usr_guess = input('\nGuess a letter:\n').upper()
+            time.sleep(5)
+            passed = False
+            while passed is False:  # Cancels the full word guess if left blank
+                conf = input('Press enter without inputting anything to'
+                             'go back \nWrite the full word to check'
+                             ' against the answer.\n')
+                if conf == '':
+                    print('Cancelling full word guess...')
+                    time.sleep(1)
+                    usr_guess = input('Guess a letter:\n').upper()
+                    passed = True
+
+                else:  # Validates the guess, sends it to the checker if corr
+                    if input_validation(conf, 'letter',
+                                        len(word_to_be_guessed)):
+                        full_word(word_to_be_guessed, conf)
+                        passed = True
+                    else:
+                        time.sleep(5)
+                        print('Try again:')
+
         if input_validation(usr_guess, 'letter', 1):  # Checks if input = valid
             if usr_guess not in guessed:  # Checks if guess is duplicate
                 guessed.append(usr_guess)  # Store guess in the list
@@ -215,10 +227,20 @@ def game_win():
     time.sleep(.5)
     print("You won the game!")
     time.sleep(.5)
-    input('Press enter to return to the menu\n')
-    print('Returning to menu...')
-    time.sleep(1)
-    game_menu()  # Return to menu
+    passed = False
+    while passed is False:
+        print('Press enter to return to the menu\n')
+        nav = input('Type R to play again\n').upper()
+        if nav == '':
+            print('Returning to menu...')
+            time.sleep(1)
+            game_menu()  # Return to menu
+        if nav == 'R':
+            print('Restarting game...')
+            time.sleep(1)
+            game_running()  # Return to menu
+        else:
+            print('Invalid input, try again')
 
 
 def game_loss(word):
@@ -234,10 +256,20 @@ def game_loss(word):
     time.sleep(.5)
     print(f"The answer was '{word.upper()}'\nWas it really that hard?\n")
     time.sleep(.5)
-    input('Press enter to return to the menu\n')
-    print('Returning to menu...')
-    time.sleep(1)
-    game_menu()  # Return to menu
+    passed = False
+    while passed is False:
+        print('Press enter to return to the menu\n')
+        nav = input('Type R to play again\n').upper()
+        if nav == '':
+            print('Returning to menu...')
+            time.sleep(1)
+            game_menu()  # Return to menu
+        if nav == 'R':
+            print('Restarting game...')
+            time.sleep(1)
+            game_running()  # Return to menu
+        else:
+            print('Invalid input, try again')
 
 
 def instructions():
