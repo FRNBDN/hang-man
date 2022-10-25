@@ -20,7 +20,7 @@ def game_menu():
         print('3. Quit\n')
         user_input = input('Navigate the menu by typing '
                            'the corresponding number:\n')
-        if input_validation(user_input, 'number') is True:
+        if input_validation(user_input, 'number', 1) is True:
             if user_input == '1':
                 # Game launch with a transition
                 print('\nPreparing gameboard...\n')
@@ -57,7 +57,8 @@ def game_start():
     words = hangmanwordbank.words
     word = random.choice(words).upper()
 
-    print('\nTo quit to menu, type "quit"\n')
+    print('\nTo quit to menu, type "QUIT"')
+    print('To guess the entire word in one go type "FW"\n')
     print(hangmanwordbank.HANGMANPICS[0])
     print('=================')
     print('Progress:')
@@ -99,8 +100,20 @@ def game_running():
                 game_menu()
             print('Reurning to game..')
             time.sleep(1)
-        if input_validation(usr_guess, 'letter'):  # Checks if input is valid
-
+        if usr_guess == 'FW':  # Checks for keyword for full guess from input
+            print("\nIf you get the full word wrong, you will lose the game")
+            print("\nAre you sure you want to guess the full word?")
+            conf = input('To confirm, write the full word and press enter\n'
+                         'To cancel press enter without typing anything in the'
+                         'input area,\n').upper()
+            if (conf != '' and input_validation(conf, 'letter',
+                                                len(word_to_be_guessed))):
+                # if its a serious guess, its sent to check if corr
+                full_word(word_to_be_guessed, conf)
+            else:
+                print('Cancelling full word guess...')
+                usr_guess = input('\nGuess a letter:\n').upper()
+        if input_validation(usr_guess, 'letter', 1):  # Checks if input = valid
             if usr_guess not in guessed:  # Checks if guess is duplicate
                 guessed.append(usr_guess)  # Store guess in the list
                 if usr_guess in word_to_be_guessed:  # Prints success
@@ -118,17 +131,23 @@ def game_running():
     game_loss(word_to_be_guessed)  # Calls the loss function.
 
 
-def input_validation(usr_input, char_type):
+def input_validation(usr_input, char_type, ex_len):
     """
     Validates the users input.
     """
     try:
         # Checks if the input is more than 1 character
-        if len(usr_input) > 1:
+        # for inputs expecting only 1 char
+        if len(usr_input) > ex_len:
             raise ValueError(  # Error message for too many chars
                 "Too many characters in your input, it contains "
-                f"{len(usr_input)} characters instead of one"
-            )
+                f"{len(usr_input)} characters instead of {ex_len}"
+                )
+        if len(usr_input) < ex_len:
+            raise ValueError(  # Error message for too few chars
+                "Too few characters in your input, it contains "
+                f"{len(usr_input)} characters instead of {ex_len}"
+                )
         # If statements depending on value of the passed through char_type
         if char_type == 'number':  # Checks if int
             int(usr_input)
@@ -163,15 +182,20 @@ def game_board_update(guessed, tot_wrong, word):
     for i in guessed:  # Loop for wrong guesses
         if i not in word:
             wrong_guess += f"{i} "
+    # Sees if the wrong guesses still is empty, to see if it should
+    # remove 'none' or not.
+    prog_print = wrong_guess if len(wrong_guess) > 0 else 'None'
+
     # New gameboard print
-    print('\nTo quit to menu, type "quit"\n')
+    print('\nTo quit to menu, type "QUIT"')
+    print('To guess the entire word in one go type "FW"\n')
     print(graphic)
     print('=================')
     print('Progress:')
     print(word_progress)
     print('=================')
     print("Wrong Guesses:")
-    print(wrong_guess)
+    print(prog_print)
     print('=================')
 
     # Checks to see if all the letters has been guessed
@@ -242,6 +266,16 @@ def instructions():
     print('Returning to menu...')
     time.sleep(1)
     game_menu()  # Return to menu
+
+
+def full_word(word, guess):
+    """
+    Checks if the full word guess is correct or not.
+    """
+    if word == guess:
+        game_win()
+    else:
+        game_loss(word)
 
 
 game_menu()  # Calls function to run game
