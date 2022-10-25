@@ -144,3 +144,4 @@ The live version of the project is deployed on Heroku for the time being followi
 ## Content 
 
 - The Hangman Wordbank and hangman text graphics used in this project was made by chrishorton and can be found [here](https://gist.github.com/chrishorton/8510732aa9a80a03c829b09f12e20d9c)
+- The Clear function was found on [stackoverflow](https://stackoverflow.com/a/684344)

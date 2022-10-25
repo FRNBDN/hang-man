@@ -1,5 +1,6 @@
 import random
 import time
+import os
 import hangmanwordbank
 # hangman resources like picture and wordbank from Github
 # https://gist.github.com/chrishorton/8510732aa9a80a03c829b09f12e20d9c
@@ -234,10 +235,12 @@ def game_win():
         if nav == '':
             print('Returning to menu...')
             time.sleep(1)
+            cls()
             game_menu()  # Return to menu
         if nav == 'R':
             print('Restarting game...')
             time.sleep(1)
+            cls()
             game_running()  # Return to menu
         else:
             print('Invalid input, try again')
@@ -263,10 +266,12 @@ def game_loss(word):
         if nav == '':
             print('Returning to menu...')
             time.sleep(1)
+            cls()
             game_menu()  # Return to menu
         if nav == 'R':
             print('Restarting game...')
             time.sleep(1)
+            cls()
             game_running()  # Return to menu
         else:
             print('Invalid input, try again')
@@ -308,6 +313,13 @@ def full_word(word, guess):
         game_win()
     else:
         game_loss(word)
+
+
+def cls():  # Function from stack overflow: https://stackoverflow.com/a/684344
+    """
+    Clear function that checks for OS to make sure it works cross platform
+    """
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 game_menu()  # Calls function to run game
