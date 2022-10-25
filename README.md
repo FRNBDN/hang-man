@@ -24,6 +24,18 @@ This Python Terminal Game is meant for:
 
 A python terminal program that is made completely with python and contains various advanced functionalities.
 
+### Planning
+
+Here are my plans that I wrote down in the notepad as I was planning the project, some functions are not added in the notes as they were decided as I was writing the code.
+
+Notes for playing part:
+
+![gamenote](/readme-imgs/plan-game.png)
+
+And here is the one for the other menu items:
+
+![alt](/readme-imgs/plan-alt.png)
+
 ### Design
 
 For design, since it is a program running in the terminal, the only design elements would be the hangman itself and the win and loss "graphics" and the latter two was made by me and the first one along with the words used are from the [hangmanworbank by chrishorton on github](https://gist.github.com/chrishorton/8510732aa9a80a03c829b09f12e20d9c)
@@ -129,6 +141,10 @@ Listed is the main issues discovered.
  - Solution: I converted all the inputs to upper with the function .upper(), as it also hinders issues with upper/lower case not counting as the same character.
 
 ### Validator Testing 
+![validator](/readme-imgs/pycodestyle.png)
+
+- Using the pycodestyle linter in the gitpod workspace gave these results.
+- As the issues are not with my code and my mentor said they were fine, I did not investigate further.
 
 ### Unfixed Bugs
 
