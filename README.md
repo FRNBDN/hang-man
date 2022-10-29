@@ -156,8 +156,10 @@ The development of this code was done exclusively in GitPod, with the changes be
 
 The live version of the project is deployed on Heroku for the time being following the steps outlined by the Code Institute
 
+The link to the hosted program on heroku can be found [here](https://hangman-game-animals.herokuapp.com/)
 
-## Content 
+
+## Credits 
 
 - The Hangman Wordbank and hangman text graphics used in this project was made by chrishorton and can be found [here](https://gist.github.com/chrishorton/8510732aa9a80a03c829b09f12e20d9c)
 - The Clear function was found on [stackoverflow](https://stackoverflow.com/a/684344)
