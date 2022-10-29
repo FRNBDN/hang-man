@@ -52,6 +52,7 @@ As the picture depicts, the items in the main menu are as follows:
  - Play
  - Instructions
  - Quit
+ 
 The program validates if the players input is indeed 1 number, it returns an error message if it is not, and if it is above 3, it lets the player know that the menu is only between 1-3
 
 ![menuval](/readme-imgs/menval.png)
