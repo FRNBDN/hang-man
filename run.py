@@ -98,6 +98,8 @@ def game_running():
                 print('Quitting...')
                 time.sleep(1)
                 print('Quit successfully')
+                time.sleep(.5)
+                cls()
                 game_menu()
             print('Reurning to game..')
             time.sleep(1)
